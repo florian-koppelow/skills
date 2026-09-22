@@ -24,6 +24,8 @@ MIT. Take them, change them, ship them.
 
 ## meeting-to-brief
 
+![meeting-to-brief process chain: transcript in, silent analysis, three to four questions, record out, prompt out](assets/flow.svg)
+
 Turns a raw meeting transcript into two things. A clean record of what the
 meeting decided, and a copy-paste prompt for the next agent.
 
