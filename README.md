@@ -1,18 +1,26 @@
-# claude-skills
+# skills
 
-Skills I build for Claude Code and the Claude desktop app. Each skill is one
-folder with a single `SKILL.md`.
+Agent skills I build. Each skill is one folder with a single `SKILL.md`: a
+description that tells the agent when to reach for it, and a body that tells it
+how to work. Plain Markdown, no runtime, no dependency on one vendor.
+
+They run wherever an agent reads `SKILL.md`, among them Claude Code, the Claude
+desktop app and Cursor.
 
 ## Install
 
-Copy the folder into your skills directory:
+Copy the folder into the skills directory of your agent. For Claude:
 
 ```bash
 cp -r skills/meeting-to-brief ~/.claude/skills/
 ```
 
-Or zip the skill folder, rename it to `.skill`, and upload it under Customize
-in the Claude desktop app.
+For the Claude desktop app, zip the skill folder, rename it to `.skill`, and
+upload it under Customize.
+
+## License
+
+MIT. Take them, change them, ship them.
 
 ## meeting-to-brief
 
