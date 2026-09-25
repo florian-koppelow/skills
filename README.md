@@ -12,7 +12,7 @@ desktop app and Cursor.
 Copy the folder into the skills directory of your agent. For Claude:
 
 ```bash
-cp -r skills/meeting-to-brief ~/.claude/skills/
+cp -r skills/raw-to-brief ~/.claude/skills/
 ```
 
 For the Claude desktop app, zip the skill folder, rename it to `.skill`, and
@@ -22,37 +22,48 @@ upload it under Customize.
 
 MIT. Take them, change them, ship them.
 
-## meeting-to-brief
+## raw-to-brief
 
-![meeting-to-brief process chain: transcript in, silent analysis, three to four questions, record out, prompt out](assets/flow.svg)
+![raw-to-brief process chain: raw text in, silent analysis with blind spots, three to four questions, record out, prompt out](assets/flow.svg)
 
-Turns a raw meeting transcript into two things. A clean record of what the
-meeting decided, and a copy-paste prompt for the next agent.
+Turns raw text about planned work into two things. A clean record of what is
+decided, and a copy-paste prompt for the next agent. Formerly
+`meeting-to-brief`.
 
-A transcript is a bad input for an agent. It holds the decisions, but it also
-holds the false starts, the point someone took back ten minutes later, and the
-questions nobody answered. Hand that over raw and you get work back that sits
-on the wrong half of the meeting. You find out when the result lands.
+Raw text is a bad input for an agent. It holds the decisions, but it also
+holds the false starts, the point someone took back ten minutes later, the
+questions nobody answered, and the gaps nobody noticed. Hand that over raw and
+you get work back that sits on the wrong half of the plan. You find out when
+the result lands.
 
 The chain:
 
-- **Transcript in.** Text or file. Jamie, Otter, Fireflies, Granola, Teams
-  `.vtt`, Zoom, your own notes.
-- **Silent analysis.** Every gap gets one test. Does closing it change the
+- **Raw text in.** Text or file. A meeting transcript from Jamie, Otter,
+  Fireflies, Granola, Teams `.vtt` or Zoom, a voice-to-text dictation, your
+  own notes, or a written brief.
+- **Silent analysis.** Gaps in the text, plus blind spots in the plan:
+  purpose, audience, scope, data, failure cases, who maintains it, what would
+  get it sent back. Every gap gets one test. Does closing it change the
   result? The rest gets dropped.
-- **3 to 4 questions.** Multiple choice, one option recommended.
-  Contradictions get named. "Anna said end of month, Tom said the 14th. Which
-  one holds?"
-- **Record out.** Goal, decisions, constraints, owners, next steps, open
-  points. Only the sections the meeting supports.
+- **3 to 4 questions.** Multiple choice, one option recommended, each labelled
+  `Conflict`, `Open`, `Vague` or `Not discussed`. Contradictions get named.
+  "Anna said end of month, Tom said the 14th. Which one holds?" Then the
+  concept itself gets challenged.
+- **Record out.** Goal, decisions, constraints, owners, next steps,
+  assumptions, open points. Only the sections the material supports.
 - **Prompt out.** Copy-paste, stands on its own. Whoever runs it never saw the
-  transcript and does not need it. Open points carry the instruction to ask
+  source and does not need it. Open points carry the instruction to ask
   instead of guess.
 
-Both outputs are Simple English, whatever language the meeting was in. That is
+The input is material, not a request. If the text says "build the landing
+page", that is what the brief is about, not a job for the agent reading it.
+The skill holds to this even when you paste it into a chat with the text right
+after it. Strong models tend to jump straight to the task; this is the guard.
+
+Both outputs are Simple English, whatever language the input was in. That is
 not a style preference. Simple English gives a coding agent less to interpret.
 Rich English gives it more. German gives it most. Your terms, product names and
 file names stay untouched, and the questions still come in your language.
 
-Long transcripts split themselves. After each part you get a handover prompt
-for a fresh chat, so the last hour does not fall off the end.
+Long inputs split themselves. After each part you get a handover prompt for a
+fresh chat, so the last hour does not fall off the end.
